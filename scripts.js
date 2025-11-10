@@ -10,9 +10,9 @@ const translations = {
         "تنظيم الحفلات، أعياد الميلاد، الخطوبات والمزيد بأسلوب فاخر.": "We organize parties, birthdays, engagements and more with a luxurious style.",
         "معرض الصور": "Gallery",
         "معلومات التواصل": "Contact Info",
-        "📞 الهاتف: +212 6 12345678": "📞 Phone: +212 6 12345678",
-        "📧 البريد الإلكتروني: contact@profiss-event.com": "📧 Email: contact@profiss-event.com",
-        "📍 العنوان: الرباط، المغرب": "📍 Address: Rabat, Morocco",
+        "📞الهاتف:+212633585325": "📞 Phone: +212 633585325",
+        "📧 البريد الإلكتروني: ayoubgf1808@gmail.com": "📧 Email: ayoubgf1808@gmail.com",
+        "📍 العنوان: مراكش ،المغرب": "📍 Address: marrakech, Morocco",
         "تواصل معنا": "Contact Us",
         "إرسال": "Send"
     },
