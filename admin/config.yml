@@ -3,19 +3,21 @@ backend:
   repo: ayoubgf26/profiss-event
   branch: main
 
+publish_mode: editorial_workflow
+
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "homepage"
-    label: "الصفحة الرئيسية"
+  - name: "pages"
+    label: "صفحات الموقع"
     files:
       - file: "index.html"
-        label: "الرئيسية"
+        label: "الصفحة الرئيسية"
         name: "home"
         fields:
           - { label: "العنوان الرئيسي", name: "title", widget: "string" }
-          - { label: "النص الرئيسي", name: "description", widget: "text" }
+          - { label: "الوصف", name: "description", widget: "text" }
           - { label: "صورة 1", name: "image1", widget: "image" }
           - { label: "صورة 2", name: "image2", widget: "image" }
           - { label: "صورة 3", name: "image3", widget: "image" }
