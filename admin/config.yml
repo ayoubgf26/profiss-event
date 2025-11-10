@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: ayoubgf26/profiss-event
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "homepage"
+    label: "الصفحة الرئيسية"
+    files:
+      - file: "index.html"
+        label: "الرئيسية"
+        name: "home"
+        fields:
+          - { label: "العنوان الرئيسي", name: "title", widget: "string" }
+          - { label: "النص الرئيسي", name: "description", widget: "text" }
+          - { label: "صورة 1", name: "image1", widget: "image" }
+          - { label: "صورة 2", name: "image2", widget: "image" }
+          - { label: "صورة 3", name: "image3", widget: "image" }
