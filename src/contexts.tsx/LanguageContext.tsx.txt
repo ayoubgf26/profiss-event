@@ -1,0 +1,224 @@
+import { createContext, useContext, useState, ReactNode } from "react";
+
+type Language = "fr" | "ar" | "en";
+
+interface Translations {
+  [key: string]: {
+    fr: string;
+    ar: string;
+    en: string;
+  };
+}
+
+const translations: Translations = {
+  siteName: {
+    fr: "PROFISS EVENTS",
+    ar: "بروفيس إيفنتس",
+    en: "PROFISS EVENTS",
+  },
+  siteTagline: {
+    fr: "Organisation d'événements",
+    ar: "تنظيم الحفلات",
+    en: "Event Planning",
+  },
+  navHome: {
+    fr: "Accueil",
+    ar: "الرئيسية",
+    en: "Home",
+  },
+  navServices: {
+    fr: "Nos Services",
+    ar: "خدماتنا",
+    en: "Our Services",
+  },
+  navGallery: {
+    fr: "Galerie",
+    ar: "المعرض",
+    en: "Gallery",
+  },
+  navContact: {
+    fr: "Contact",
+    ar: "اتصل بنا",
+    en: "Contact",
+  },
+  heroTitle: {
+    fr: "Organisation d'événements inoubliables",
+    ar: "تنظيم الحفلات التي لا تُنسى",
+    en: "Unforgettable Event Planning",
+  },
+  heroDesc: {
+    fr: "Nous concevons, planifions et réalisons des événements qui laissent des souvenirs — mariages, anniversaires, soirées d'entreprise et plus.",
+    ar: "نقوم بتصميم وتخطيط وتنفيذ الفعاليات التي تترك ذكريات - حفلات الزفاف، أعياد الميلاد، الفعاليات المؤسسية والمزيد.",
+    en: "We design, plan and execute events that create lasting memories — weddings, birthdays, corporate events and more.",
+  },
+  bookBtn: {
+    fr: "Réserver une consultation",
+    ar: "احجز استشارة",
+    en: "Book a Consultation",
+  },
+  learnBtn: {
+    fr: "Découvrir nos services",
+    ar: "اكتشف خدماتنا",
+    en: "Discover Our Services",
+  },
+  servicesTitle: {
+    fr: "Nos Services",
+    ar: "خدماتنا",
+    en: "Our Services",
+  },
+  servicesDesc: {
+    fr: "Des formules complètes ou à la carte — nous adaptons chaque événement à votre budget et vos envies.",
+    ar: "باقات كاملة أو حسب الطلب - نقوم بتكييف كل حدث ليناسب ميزانيتك ورغباتك.",
+    en: "Complete packages or à la carte — we adapt each event to your budget and desires.",
+  },
+  service1Title: {
+    fr: "Mariages",
+    ar: "حفلات الزفاف",
+    en: "Weddings",
+  },
+  service1Desc: {
+    fr: "Coordination complète du jour J, décoration personnalisée et prestataires de qualité.",
+    ar: "تنسيق كامل ليوم الزفاف، زينة مخصصة ومقدمو خدمات عالية الجودة.",
+    en: "Complete wedding day coordination, personalized decoration and quality service providers.",
+  },
+  service2Title: {
+    fr: "Anniversaires",
+    ar: "أعياد الميلاد",
+    en: "Birthdays",
+  },
+  service2Desc: {
+    fr: "Idées originales, animations, et gestion logistique pour une fête mémorable.",
+    ar: "أفكار أصلية، ترفيه وإدارة لوجستية لحفلة لا تُنسى.",
+    en: "Original ideas, entertainment, and logistics management for a memorable celebration.",
+  },
+  service3Title: {
+    fr: "Événements d'entreprise",
+    ar: "الفعاليات المؤسسية",
+    en: "Corporate Events",
+  },
+  service3Desc: {
+    fr: "Séminaires, soirées de gala, lancements produits — tout en image et professionnalisme.",
+    ar: "ندوات، حفلات العشاء، إطلاق المنتجات - كل شيء بصورة واحترافية.",
+    en: "Seminars, gala evenings, product launches — all with style and professionalism.",
+  },
+  service4Title: {
+    fr: "Décoration & Scénographie",
+    ar: "الديكور والسينوغرافيا",
+    en: "Decoration & Scenography",
+  },
+  service4Desc: {
+    fr: "Création d'ambiances thématiques et scénographies sur-mesure.",
+    ar: "خلق أجواء موضوعية وسينوغرافيا مخصصة.",
+    en: "Creating thematic ambiances and custom scenography.",
+  },
+  galleryTitle: {
+    fr: "Galerie",
+    ar: "المعرض",
+    en: "Gallery",
+  },
+  galleryDesc: {
+    fr: "Quelques-unes de nos réalisations.",
+    ar: "بعض من إنجازاتنا.",
+    en: "Some of our achievements.",
+  },
+  contactTitle: {
+    fr: "Contactez-nous",
+    ar: "اتصل بنا",
+    en: "Contact Us",
+  },
+  contactDesc: {
+    fr: "Parlez-nous de votre projet — nous vous répondrons sous 24h.",
+    ar: "أخبرنا عن مشروعك - سنرد عليك خلال 24 ساعة.",
+    en: "Tell us about your project — we'll respond within 24 hours.",
+  },
+  contactInfoTitle: {
+    fr: "Informations",
+    ar: "معلومات",
+    en: "Information",
+  },
+  contactPhone: {
+    fr: "Téléphone",
+    ar: "الهاتف",
+    en: "Phone",
+  },
+  contactEmail: {
+    fr: "Email",
+    ar: "البريد الإلكتروني",
+    en: "Email",
+  },
+  contactAddress: {
+    fr: "Adresse",
+    ar: "العنوان",
+    en: "Address",
+  },
+  formName: {
+    fr: "Votre nom",
+    ar: "اسمك",
+    en: "Your name",
+  },
+  formEmail: {
+    fr: "Email",
+    ar: "البريد الإلكتروني",
+    en: "Email",
+  },
+  formPhone: {
+    fr: "Téléphone",
+    ar: "الهاتف",
+    en: "Phone",
+  },
+  formService: {
+    fr: "Type d'événement",
+    ar: "نوع الحدث",
+    en: "Event Type",
+  },
+  formMessage: {
+    fr: "Dites-nous en plus...",
+    ar: "أخبرنا المزيد...",
+    en: "Tell us more...",
+  },
+  formSend: {
+    fr: "Envoyer",
+    ar: "إرسال",
+    en: "Send",
+  },
+  formSuccess: {
+    fr: "Message envoyé avec succès!",
+    ar: "تم إرسال الرسالة بنجاح!",
+    en: "Message sent successfully!",
+  },
+  footer: {
+    fr: "Tous droits réservés",
+    ar: "جميع الحقوق محفوظة",
+    en: "All rights reserved",
+  },
+};
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>("fr");
+
+  const t = (key: string): string => {
+    return translations[key]?.[language] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      <div dir={language === "ar" ? "rtl" : "ltr"}>{children}</div>
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within LanguageProvider");
+  }
+  return context;
+};

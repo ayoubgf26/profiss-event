@@ -1,0 +1,16 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+
+export const Footer = () => {
+  const { t } = useLanguage();
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="glass-card py-6 mt-12">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          © {year} {t("siteName")} — {t("footer")}
+        </p>
+      </div>
+    </footer>
+  );
+};

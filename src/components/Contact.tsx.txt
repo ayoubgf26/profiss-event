@@ -1,0 +1,176 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState, FormEvent } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { Instagram, Phone, Mail, MapPin } from "lucide-react";
+
+export const Contact = () => {
+  const { t, language } = useLanguage();
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "Mariage",
+    message: "",
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: language === "fr" ? "Erreur" : language === "ar" ? "خطأ" : "Error",
+        description: language === "fr" ? "Veuillez remplir tous les champs requis" : language === "ar" ? "يرجى ملء جميع الحقول المطلوبة" : "Please fill all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Create WhatsApp message
+    const message = `${language === "fr" ? "Nouvelle demande de" : language === "ar" ? "طلب جديد من" : "New request from"} ${formData.name}%0A${t("formEmail")}: ${formData.email}%0A${t("formPhone")}: ${formData.phone}%0A${t("formService")}: ${formData.service}%0A${t("formMessage")}: ${formData.message}`;
+    const whatsappUrl = `https://wa.me/212633585325?text=${message}`;
+
+    window.open(whatsappUrl, "_blank");
+
+    toast({
+      title: t("formSuccess"),
+      description: language === "fr" ? "Redirection vers WhatsApp..." : language === "ar" ? "إعادة التوجيه إلى واتساب..." : "Redirecting to WhatsApp...",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "Mariage",
+      message: "",
+    });
+  };
+
+  return (
+    <section className="py-12 md:py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("contactTitle")}</h2>
+          <p className="text-lg text-muted-foreground">{t("contactDesc")}</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="md:col-span-2">
+            <Card className="glass-card border-none shadow-lg">
+              <CardContent className="pt-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input
+                    placeholder={t("formName")}
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
+                  <Input
+                    type="email"
+                    placeholder={t("formEmail")}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
+                  <Input
+                    type="tel"
+                    placeholder={t("formPhone")}
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
+                  <Select
+                    value={formData.service}
+                    onValueChange={(value) => setFormData({ ...formData, service: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={t("formService")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Mariage">{t("service1Title")}</SelectItem>
+                      <SelectItem value="Anniversaire">{t("service2Title")}</SelectItem>
+                      <SelectItem value="Entreprise">{t("service3Title")}</SelectItem>
+                      <SelectItem value="Décoration">{t("service4Title")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Textarea
+                    placeholder={t("formMessage")}
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                  />
+                  <Button type="submit" size="lg" className="w-full gradient-primary text-white font-semibold">
+                    {t("formSend")}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="glass-card border-none shadow-lg">
+            <CardHeader>
+              <CardTitle>{t("contactInfoTitle")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-sm text-muted-foreground">{t("contactPhone")}</div>
+                  <a href="tel:+212633585325" className="hover:text-primary transition-colors">
+                    +212 633585325
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-sm text-muted-foreground">{t("contactEmail")}</div>
+                  <a href="mailto:ayoubgf1808@gmail.com" className="hover:text-primary transition-colors break-all">
+                    ayoubgf1808@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-sm text-muted-foreground">{t("contactAddress")}</div>
+                  <div>Marrakech, Morocco</div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t space-y-3">
+                <a
+                  href="https://www.instagram.com/profiss_Events"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-secondary transition-colors font-semibold"
+                >
+                  <Instagram className="w-5 h-5" />
+                  Instagram
+                </a>
+                <a
+                  href="https://wa.me/212633585325"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-accent transition-colors font-semibold"
+                >
+                  <Phone className="w-5 h-5" />
+                  WhatsApp
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};

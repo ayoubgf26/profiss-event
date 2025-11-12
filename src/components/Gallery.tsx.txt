@@ -1,0 +1,43 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+
+const images = [
+  { src: gallery1, alt: "Wedding decoration" },
+  { src: gallery2, alt: "Birthday celebration" },
+  { src: gallery3, alt: "Corporate event" },
+  { src: gallery4, alt: "Event decoration" },
+];
+
+export const Gallery = () => {
+  const { t } = useLanguage();
+
+  return (
+    <section className="py-12 md:py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("galleryTitle")}</h2>
+          <p className="text-lg text-muted-foreground">{t("galleryDesc")}</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
